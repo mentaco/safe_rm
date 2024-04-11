@@ -2,12 +2,12 @@
 
 set -euo pipefail
 
-backup_dir="$(dirname "$0")/backup"
+BACKUP_DIR="$(dirname "$0")/backup"
 
 function mk_backup_dir() {
-    if [ ! -d "${backup_dir}" ]; then
-        mkdir "${backup_dir}"
-        echo "Make directory at ${backup_dir}"
+    if [ ! -d "${BACKUP_DIR}" ]; then
+        mkdir "${BACKUP_DIR}"
+        echo "Make directory at ${BACKUP_DIR}"
     fi
 }
 
@@ -16,7 +16,11 @@ function copy_file() {
 
     local file_path="$1"
     local filename="$(basename "${file_path}")"
-    cp "${file_path}" "${backup_dir}/${filename}"
+
+    cp "${file_path}" "${BACKUP_DIR}/${filename}"
+
+    local dir_size=$(du -sh "${BACKUP_DIR}" | awk '{print $1}')
+    echo "Disk usage of backup directory: ${dir_size}"
 }
 
 function remove_file() {
