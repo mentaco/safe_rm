@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-BACKUP_DIR="$(dirname "$0")/backup"
+BACKUP_DIR="$(dirname -- "$0")/backup"
 
 function mk_backup_dir() {
     if [ ! -e "${BACKUP_DIR}" ]; then
@@ -15,9 +15,13 @@ function remove_file() {
     local date=$(date +%y%m%d_%R:%S)
 
     for item; do
-        local file=$(basename "${item}")
-        local dir=$(dirname "${item}")
-        mv "${dir}/${file}" "${BACKUP_DIR}/${file}_${date}"
+        if [ "${item}" = "--" ]; then
+            continue
+        fi
+
+        local file=$(basename -- "${item}")
+        local dir=$(dirname -- "${item}")
+        mv -- "${dir}/${file}" "${BACKUP_DIR}/${file}_${date}"
     done
 }
 
