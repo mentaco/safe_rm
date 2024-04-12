@@ -16,7 +16,8 @@ function remove_file() {
 
     for item; do
         local file=$(basename "${item}")
-        mv "${file}" "${BACKUP_DIR}/${file}_${date}"
+        local dir=$(dirname "${item}")
+        mv "${dir}/${file}" "${BACKUP_DIR}/${file}_${date}"
     done
 }
 
