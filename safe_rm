@@ -5,32 +5,20 @@ set -euo pipefail
 BACKUP_DIR="$(dirname "$0")/backup"
 
 function mk_backup_dir() {
-    if [ ! -d "${BACKUP_DIR}" ]; then
+    if [ ! -e "${BACKUP_DIR}" ]; then
         mkdir "${BACKUP_DIR}"
         echo "Make directory at ${BACKUP_DIR}"
     fi
 }
 
-function copy_file() {
-    mk_backup_dir
-
-    local file_path="$1"
-    local filename="$(basename "${file_path}")"
-
-    cp "${file_path}" "${BACKUP_DIR}/${filename}"
-
-    local dir_size=$(du -sh "${BACKUP_DIR}" | awk '{print $1}')
-    echo "Disk usage of backup directory: ${dir_size}"
-}
-
 function remove_file() {
-    local args=("$@")
-    local target="${args[${#args[@]} - 1]}"
-    local rm_cmd="$(which rm)"
-    
-    copy_file "${target}"
+    local date=$(date +%y%m%d_%R:%S)
 
-    "${rm_cmd}" "${args[@]}"
+    for item; do
+        local file=$(basename "${item}")
+        mv "${file}" "${BACKUP_DIR}/${file}_${date}"
+    done
 }
 
+mk_backup_dir
 remove_file "$@"
