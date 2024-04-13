@@ -2,6 +2,22 @@
 
 set -euo pipefail
 
+
+function show_help() {
+    echo "Usage: $0 [file ...]"
+    echo "This command backs up the specified files and deletes them."
+}
+
+if [ "$#" -le 0 ]; then
+    echo "Error: Missing arguments."
+    show_help
+    exit 1
+elif [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    show_help
+    exit 0
+fi
+
+
 BACKUP_DIR="$(dirname -- "$0")/backup"
 
 function mk_backup_dir() {
@@ -24,6 +40,7 @@ function remove_file() {
         mv -- "${dir}/${file}" "${BACKUP_DIR}/${file}_${date}"
     done
 }
+
 
 mk_backup_dir
 remove_file "$@"
