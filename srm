@@ -27,7 +27,7 @@ function mk_backup_dir() {
     fi
 }
 
-function remove_file() {
+function move_file() {
     local date=$(date +%y%m%d_%R:%S)
 
     for item; do
@@ -43,4 +43,4 @@ function remove_file() {
 
 
 mk_backup_dir
-remove_file "$@"
+move_file "$@"
