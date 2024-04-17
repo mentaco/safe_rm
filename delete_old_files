@@ -20,4 +20,3 @@ function delete_file() {
     done
 }
 
-delete_file
