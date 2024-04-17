@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -euo pipefail
+
+
+TARGET_DIR="$(dirname -- "$0")/backup"
+TIMEOUT=1
+
+function delete_file() {
+    local files=($(find "${TARGET_DIR}" -maxdepth 1 -mmin +"${TIMEOUT}"))
+
+    if [ ${#files[@]} -eq 0 ]; then
+        return
+    fi
+
+    for item in "${files[@]}"; do
+        if [ "${item}" != "${TARGET_DIR}" ]; then
+            rm -rf "${item}"
+        fi
+    done
+}
+
+delete_file
