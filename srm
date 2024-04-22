@@ -2,7 +2,6 @@
 
 set -euo pipefail
 
-source "$(dirname -- "$0")"/delete_old_files
 
 function show_help() {
     echo "Usage: $0 [file ...]"
@@ -17,11 +16,11 @@ elif [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
     show_help
     exit 0
 elif [ "$1" = "start" ]; then
-    delete_file
+    nohup ./delete_old_files &
     exit 0
 fi
 
-BACKUP_DIR="${TARGET_DIR}"
+BACKUP_DIR="$(dirname -- "$0")/backup"
 
 function mk_backup_dir() {
     if [ ! -e "${BACKUP_DIR}" ]; then

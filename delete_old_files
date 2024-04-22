@@ -5,6 +5,7 @@ set -euo pipefail
 
 TARGET_DIR="$(dirname -- "$0")/backup"
 TIMEOUT=1
+LOOP_TIME=10
 
 function delete_file() {
     local files=($(find "${TARGET_DIR}" -maxdepth 1 -cmin +"${TIMEOUT}"))
@@ -20,3 +21,7 @@ function delete_file() {
     done
 }
 
+while true; do
+    delete_file
+    sleep "${LOOP_TIME}"
+done
