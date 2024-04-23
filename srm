@@ -4,8 +4,13 @@ set -euo pipefail
 
 
 function show_help() {
-    echo "Usage: $0 [file ...]"
     echo "This command backs up the specified files and deletes them."
+    echo "Usage: $0 [file ...]"
+    echo "  or   $0 [option]"
+    echo "Options:"
+    echo "  --help, -h  Display this help massage."
+    echo "  start       Start a process to automatically delete old backups."
+    echo "  stop        Stop the above process."
 }
 
 
