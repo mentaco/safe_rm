@@ -8,11 +8,11 @@ TIMEOUT=1
 LOOP_TIME=10
 
 function delete_file() {
-    local files=($(find "${TARGET_DIR}" -maxdepth 1 -cmin +"${TIMEOUT}"))
-
-    if [ ${#files[@]} -eq 0 ]; then
+    if [ ! -d "${TARGET_DIR}" ]; then
         return
     fi
+
+    local files=($(find "${TARGET_DIR}" -maxdepth 1 -cmin +"${TIMEOUT}"))
 
     for item in "${files[@]}"; do
         if [ "${item}" != "${TARGET_DIR}" ]; then
