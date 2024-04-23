@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+trap 'exit 0' SIGTERM
+
 
 TARGET_DIR="$(dirname -- "$0")/backup"
 TIMEOUT=1

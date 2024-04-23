@@ -31,7 +31,10 @@ elif [ "$1" = "stop" ]; then
         echo "Process is not running."
         exit 1
     fi
-    kill "$(cat "${NOHUP_PID_FILE}")"
+
+    pid="$(cat "${NOHUP_PID_FILE}")"
+    kill -TERM "${pid}"
+
     rm "${NOHUP_PID_FILE}"
     echo "Stoped process."
     exit 0
