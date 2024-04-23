@@ -8,6 +8,9 @@ function show_help() {
     echo "This command backs up the specified files and deletes them."
 }
 
+
+NOHUP_PID_FILE="$(dirname -- "$0")/.pid"
+
 if [ "$#" -le 0 ]; then
     echo "Error: Missing arguments."
     show_help
@@ -16,9 +19,24 @@ elif [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
     show_help
     exit 0
 elif [ "$1" = "start" ]; then
-    nohup ./delete_old_files &
+    if [ -f "${NOHUP_PID_FILE}" ]; then
+        echo "The process is already running."
+        exit 1
+    fi
+    nohup ./delete_old_files > /dev/null &
+    echo "$!" > "${NOHUP_PID_FILE}"
+    exit 0
+elif [ "$1" = "stop" ]; then
+    if [ ! -f "${NOHUP_PID_FILE}" ]; then
+        echo "Process is not running."
+        exit 1
+    fi
+    kill "$(cat "${NOHUP_PID_FILE}")"
+    rm "${NOHUP_PID_FILE}"
+    echo "Stoped process."
     exit 0
 fi
+
 
 BACKUP_DIR="$(dirname -- "$0")/backup"
 
