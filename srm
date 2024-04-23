@@ -23,7 +23,7 @@ fi
 BACKUP_DIR="$(dirname -- "$0")/backup"
 
 function mk_backup_dir() {
-    if [ ! -e "${BACKUP_DIR}" ]; then
+    if [ ! -d "${BACKUP_DIR}" ]; then
         mkdir "${BACKUP_DIR}"
         echo "Make directory at ${BACKUP_DIR}"
     fi
