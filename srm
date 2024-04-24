@@ -11,9 +11,11 @@ function show_help() {
     echo "  --help, -h  Display this help massage."
     echo "  start       Start a process to automatically delete old backups."
     echo "  stop        Stop the above process."
+    echo "  list        Show the files present in the backup directory."
 }
 
 
+BACKUP_DIR="$(dirname -- "$0")/backup"
 NOHUP_PID_FILE="$(dirname -- "$0")/.pid"
 
 if [ "$#" -le 0 ]; then
@@ -43,10 +45,11 @@ elif [ "$1" = "stop" ]; then
     rm "${NOHUP_PID_FILE}"
     echo "Stoped process."
     exit 0
+elif [ "$1" = "list" ]; then
+    $(dirname -- "$0")/show_list "${BACKUP_DIR}"
+    exit 0
 fi
 
-
-BACKUP_DIR="$(dirname -- "$0")/backup"
 
 function mk_backup_dir() {
     if [ ! -d "${BACKUP_DIR}" ]; then
