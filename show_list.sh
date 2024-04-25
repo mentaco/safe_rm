@@ -15,11 +15,6 @@ function show_list() {
 
     echo -e "Backup directory is ${TARGET_DIR}\n"
 
-    # for item in "${files[@]}"; do
-    #     if [ "${item}" != "${TARGET_DIR}" ]; then
-    #         echo "$(basename "${item}")"
-    #     fi
-    # done
     ls -p "${TARGET_DIR}"
 }
 
