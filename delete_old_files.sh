@@ -4,8 +4,9 @@ set -uo pipefail
 
 trap 'exit 0' SIGTERM
 
+cd "$(dirname -- "$0")"
 
-TARGET_DIR="$(dirname -- "$0")/backup"
+TARGET_DIR="./backup"
 TIMEOUT=1
 LOOP_TIME=10
 

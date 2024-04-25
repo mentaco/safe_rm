@@ -2,6 +2,7 @@
 
 set -euo pipefail
 
+cd "$(dirname -- "$0")"
 
 function show_list() {
    TARGET_DIR="$1"

@@ -2,6 +2,7 @@
 
 set -euo pipefail
 
+cd "$(dirname -- "$0")"
 
 function show_help() {
     echo "This command backs up the specified files and deletes them."
@@ -15,8 +16,8 @@ function show_help() {
 }
 
 
-BACKUP_DIR="$(dirname -- "$0")/backup"
-NOHUP_PID_FILE="$(dirname -- "$0")/.pid"
+BACKUP_DIR="./backup"
+NOHUP_PID_FILE="./.pid"
 
 if [ "$#" -le 0 ]; then
     echo "Error: Missing arguments."
@@ -30,7 +31,7 @@ elif [ "$1" = "start" ]; then
         echo "The process is already running."
         exit 1
     fi
-    nohup ./delete_old_files > /dev/null &
+    nohup ./delete_old_files.sh > /dev/null &
     echo "$!" > "${NOHUP_PID_FILE}"
     exit 0
 elif [ "$1" = "stop" ]; then
@@ -46,7 +47,7 @@ elif [ "$1" = "stop" ]; then
     echo "Stoped process."
     exit 0
 elif [ "$1" = "list" ]; then
-    $(dirname -- "$0")/show_list "${BACKUP_DIR}"
+    ./show_list.sh "${BACKUP_DIR}"
     exit 0
 fi
 
