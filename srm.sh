@@ -13,6 +13,8 @@ function show_help() {
     echo "  start       Start a process to automatically delete old backups."
     echo "  stop        Stop the above process."
     echo "  list        Show the files present in the backup directory."
+    echo "  restore     Restore files with specified index."
+    echo "              Takes integer as argument."
 }
 
 
@@ -49,6 +51,10 @@ elif [ "$1" = "stop" ]; then
     exit 0
 elif [ "$1" = "list" ]; then
     ./show_list.sh "${BACKUP_DIR}" "${PATH_RECORD}"
+    exit 0
+elif [ "$1" = "restore" ]; then
+    shift
+    ./restore_files.sh $@
     exit 0
 fi
 
