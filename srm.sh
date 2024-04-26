@@ -48,7 +48,7 @@ elif [ "$1" = "stop" ]; then
     echo "Stoped process."
     exit 0
 elif [ "$1" = "list" ]; then
-    ./show_list.sh "${BACKUP_DIR}"
+    ./show_list.sh "${BACKUP_DIR}" "${PATH_RECORD}"
     exit 0
 fi
 

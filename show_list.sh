@@ -5,7 +5,8 @@ set -euo pipefail
 cd "$(dirname -- "$0")"
 
 function show_list() {
-   TARGET_DIR="$1"
+    TARGET_DIR="$1"
+    PATH_RECORD="$2"
 
     if [ ! -d "${TARGET_DIR}" ]; then
         echo "Backup directory does not exist."
@@ -16,7 +17,18 @@ function show_list() {
 
     echo -e "Backup directory is ${TARGET_DIR}\n"
 
-    ls -p "${TARGET_DIR}"
+    echo "[  Original  Backup  ]"
+
+    IFS=" "
+    local idx=0
+    while read original backup; do
+        echo ""${idx}"  "${original}"  "$(basename "${backup}")""
+        ((++idx))
+    done < "${PATH_RECORD}"
+
+    echo ""
+    echo "If you want to restore files, enter the file number in the command."
+    echo "Example: srm restore 3 4"
 }
 
-show_list $1
+show_list "$@"
