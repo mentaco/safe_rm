@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-cd "$(dirname -- "$0")"
+cd "$(dirname -- "$(realpath "$0")")"
 
 function show_help() {
     echo "This command backs up the specified files and deletes them."
