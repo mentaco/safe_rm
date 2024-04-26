@@ -8,8 +8,8 @@ cd "$(dirname -- "$0")"
 
 TARGET_DIR="./backup"
 PATH_RECORD="./.paths"
-TIMEOUT=1
-LOOP_TIME=10
+TIMEOUT=120
+LOOP_TIME=600
 
 function delete_path_record() {
     local idx=1
