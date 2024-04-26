@@ -20,7 +20,7 @@ function show_list() {
     echo "[  Original  Backup  ]"
 
     IFS=" "
-    local idx=0
+    local idx=1
     while read original backup; do
         echo ""${idx}"  "${original}"  "$(basename "${backup}")""
         ((++idx))
