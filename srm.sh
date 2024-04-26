@@ -18,6 +18,7 @@ function show_help() {
 
 BACKUP_DIR="./backup"
 NOHUP_PID_FILE="./.pid"
+PATH_RECORD="./.paths"
 
 if [ "$#" -le 0 ]; then
     echo "Error: Missing arguments."
@@ -59,17 +60,24 @@ function mk_backup_dir() {
     fi
 }
 
+function record_path() {
+    local path="$(dirname "$1")/"$1""
+    local element="${path} $2"
+    echo "${element}" >> "${PATH_RECORD}"
+}
+
 function move_file() {
-    local date=$(date +%y%m%d_%R:%S)
+    local date="$(date +%y%m%d_%R:%S)"
 
     for item; do
         if [ "${item}" = "--" ]; then
             continue
         fi
 
-        local file=$(basename -- "${item}")
-        local dir=$(dirname -- "${item}")
-        mv -- "${dir}/${file}" "${BACKUP_DIR}/${file}_${date}"
+        local file="$(basename -- "${item}")"
+        local backup_file="${BACKUP_DIR}/${file}_${date}"
+        record_path "${item}" "${backup_file}"
+        mv -- "${item}" "${backup_file}"
     done
 }
 
