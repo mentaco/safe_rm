@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -euxo pipefail
+set -euo pipefail
 
 cd "$(dirname -- "$0")"
 
@@ -13,7 +13,6 @@ function restore_file() {
     IFS=" "
     local idx=1
     while read original backup; do
-        echo "${original}"
         if [ "${target_idx}" -eq "${idx}" ]; then
             eval mv -i "${backup}" "${original}"
             return
@@ -22,9 +21,9 @@ function restore_file() {
     done < "${PATH_RECORD}"
 }
 
-sorted_num="$(sort -nr <<< "$@")"
-
-for num in "${sorted_num}"; do
+args=("$@")
+sorted_num=($(printf "%d\n" "${args[@]}"| sort -nr))
+for num in "${sorted_num[@]}"; do
     restore_file "${num}"
     sed -i "" ${num}d "${PATH_RECORD}"
 done
