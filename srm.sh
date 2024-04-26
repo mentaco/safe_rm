@@ -33,6 +33,7 @@ elif [ "$1" = "start" ]; then
         echo "The process is already running."
         exit 1
     fi
+
     nohup ./delete_old_files.sh > /dev/null &
     echo "$!" > "${NOHUP_PID_FILE}"
     exit 0
