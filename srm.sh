@@ -61,7 +61,7 @@ function mk_backup_dir() {
 }
 
 function record_path() {
-    local path="$(dirname "$1")/"$1""
+    local path="$(realpath "$1" | sed "s|$HOME|~|")"
     local element="${path} $2"
     echo "${element}" >> "${PATH_RECORD}"
 }
