@@ -1,4 +1,4 @@
 backup/
 nohup.out
 .pid
-.paths
+.path_list
