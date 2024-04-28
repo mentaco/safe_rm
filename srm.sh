@@ -18,7 +18,7 @@ function show_help() {
 
 BACKUP_DIR="./backup"
 NOHUP_PID_FILE="./.pid"
-PATH_RECORD="./.paths"
+PATH_RECORD="./.path_list"
 
 if [ "$#" -le 0 ]; then
     echo "Error: Missing arguments."
@@ -34,7 +34,7 @@ elif [ "$1" = "start" ]; then
         exit 1
     fi
 
-    nohup ./delete_old_files.sh > /dev/null &
+    nohup ./delete_old_files.sh "${BACKUP_DIR}" "${PATH_RECORD}" > /dev/null &
     echo "$!" > "${NOHUP_PID_FILE}"
     exit 0
 elif [ "$1" = "stop" ]; then

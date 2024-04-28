@@ -6,8 +6,8 @@ trap 'exit 0' SIGTERM
 
 cd "$(dirname -- "$0")"
 
-TARGET_DIR="./backup"
-PATH_RECORD="./.paths"
+TARGET_DIR="$1"
+PATH_RECORD="$2"
 TIMEOUT=120
 LOOP_TIME=600
 
