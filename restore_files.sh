@@ -4,8 +4,10 @@ set -euo pipefail
 
 cd "$(dirname -- "$0")"
 
-TARGET_DIR="./backup"
-PATH_RECORD="./.paths"
+TARGET_DIR="$1"
+PATH_RECORD="$2"
+shift
+shift
 
 function restore_file() {
     local target_idx="$1"

@@ -57,7 +57,7 @@ elif [ "$1" = "list" ]; then
 elif [ "$1" = "restore" ]; then
     shift
     cd "$(dirname -- "$(realpath "$0")")"
-    ./restore_files.sh $@
+    ./restore_files.sh "${BACKUP_DIR}" "${PATH_RECORD}" "$@"
     exit 0
 fi
 
