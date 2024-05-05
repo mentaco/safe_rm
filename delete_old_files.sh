@@ -2,7 +2,7 @@
 
 set -uo pipefail
 
-trap 'exit 0' SIGTERM
+trap 'exit 0' SIGKILL
 
 cd "$(dirname -- "$0")"
 

@@ -32,8 +32,16 @@ elif [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
 elif [ "$1" = "start" ]; then
     cd "$(dirname -- "$(realpath "$0")")"
     if [ -f "${NOHUP_PID_FILE}" ]; then
-        echo "The process is already running."
-        exit 1
+        pid="$(cat "${NOHUP_PID_FILE}")"
+        if ps -p "${pid}" > /dev/null; then
+            process_name="$(ps -p "${pid}" -o args)"
+            if [[ "${process_name}" == *"delete_old_files"* ]]; then
+                echo "The process is already running."
+                exit 1
+            else
+                kill -KILL "${pid}"
+            fi
+        fi
     fi
 
     nohup ./delete_old_files.sh "${BACKUP_DIR}" "${PATH_RECORD}" > /dev/null &
@@ -42,15 +50,15 @@ elif [ "$1" = "start" ]; then
 
 elif [ "$1" = "stop" ]; then
     cd "$(dirname -- "$(realpath "$0")")"
-    if [ ! -f "${NOHUP_PID_FILE}" ]; then
+    pid="$(cat "${NOHUP_PID_FILE}")"
+    if ! ps -p "${pid}" > /dev/null; then
         echo "Process is not running."
         exit 1
     fi
 
     pid="$(cat "${NOHUP_PID_FILE}")"
-    kill -TERM "${pid}"
+    kill -KILL "${pid}"
 
-    rm "${NOHUP_PID_FILE}"
     echo "Stoped process."
     exit 0
 
