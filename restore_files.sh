@@ -27,5 +27,11 @@ args=("$@")
 sorted_num=($(printf "%d\n" "${args[@]}"| sort -nr))
 for num in "${sorted_num[@]}"; do
     restore_file "${num}"
-    sed -i "" ${num}d "${PATH_RECORD}"
+
+    if [ "$(uname)" == 'Darwin' ]; then
+        sed -i "" "${num}"d "${PATH_RECORD}"  # macOS
+    elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
+        sed -i "${num}"d "${PATH_RECORD}"  # Linux
+    fi
+
 done

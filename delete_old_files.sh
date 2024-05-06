@@ -21,7 +21,11 @@ function delete_path_record() {
         ((++idx))
     done
     
-    sed -i "" ${idx}d "${PATH_RECORD}"
+    if [ "$(uname)" == 'Darwin' ]; then
+        sed -i "" "${idx}"d "${PATH_RECORD}"  # macOS
+    elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
+        sed -i "${idx}"d "${PATH_RECORD}"  # Linux
+    fi
 }
 
 function delete_file() {

@@ -15,7 +15,6 @@ function show_help() {
     echo "              Takes integer as argument."
 }
 
-
 BACKUP_DIR="./backup"
 NOHUP_PID_FILE="./.pid"
 PATH_RECORD="./.path_list"
