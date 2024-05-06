@@ -7,7 +7,7 @@ PATH_RECORD="$2"
 shift
 shift
 
-FILES="$@"
+FILES=("$@")
 
 function mk_backup_dir() {
     if [ ! -d "${BACKUP_DIR}" ]; then
