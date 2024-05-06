@@ -1,7 +1,5 @@
 # Safe rm
-Safe_rm can be used in place of the `rm` command to prevent accidental deletion of files. Deleted files are temporarily stored in the backup directory. It can also be used to restore files from backups.\
-\
-(**This program works on macOS.**)
+Safe_rm can be used in place of the `rm` command to prevent accidental deletion of files. Deleted files are temporarily stored in the backup directory. It can also be used to restore files from backups.
 
 ## How to Use
 It is recommended to create a symbolic link to `srm.sh` after cloning the repository.
@@ -23,11 +21,11 @@ srm list
 Output:
 ```
 [  Original  Backup  ]
-1  ~/development/file1  file1_240427_23:33:04
-2  ~/development/file2  file2_240427_23:33:04
-3  ~/development/file3  file3_240427_23:33:04
-4  ~/development/file4  file4_240427_23:33:04
-5  ~/development/file5  file5_240427_23:33:04
+1  ~/develop/file1  file1_240427_23:33:04
+2  ~/develop/file2  file2_240427_23:33:04
+3  ~/develop/file3  file3_240427_23:33:04
+4  ~/develop/file4  file4_240427_23:33:04
+5  ~/develop/file5  file5_240427_23:33:04
 ```
 
 ### Restore Files
