@@ -35,11 +35,18 @@ srm restore 1 3
 ```
 
 ### Delete Files Completely
-The `start` option deletes old backups in the background. (Timeout is 2 hours.)
+The `start` option deletes old backups in the background. (Timeout is 120 minutes by default.)
 ```bash
 # Start the process
 srm start
 
 # Stop the process
 srm stop
+```
+
+### Set Timeout
+You can set the timeout time with the `timeout` option.
+```bash
+# Set timeout to 300 minutes
+srm timeout 300
 ```
