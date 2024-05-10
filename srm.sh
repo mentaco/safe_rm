@@ -37,8 +37,6 @@ elif [ "$1" = "start" ]; then
             if [[ "${process_name}" == *"delete_old_files"* ]]; then
                 echo "The process is already running."
                 exit 1
-            else
-                kill -KILL "${pid}"
             fi
         fi
     fi
