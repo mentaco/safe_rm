@@ -2,3 +2,4 @@ backup/
 nohup.out
 .pid
 .path_list
+timeout
