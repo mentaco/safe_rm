@@ -7,12 +7,13 @@ function show_help() {
     echo "Usage: $0 [file ...]"
     echo "  or   $0 [option]"
     echo "Options:"
-    echo "  --help, -h  Display this help massage."
-    echo "  start       Start a process to automatically delete old backups."
-    echo "  stop        Stop the above process."
-    echo "  list        Show the files present in the backup directory."
-    echo "  restore     Restore files with specified index."
-    echo "              Takes integer as argument."
+    echo "  --help, -h              Display this help massage."
+    echo "  start                   Start a process to automatically delete old backups."
+    echo "  stop                    Stop the above process."
+    echo "  list                    Show the files present in the backup directory."
+    echo "  restore [index ...]     Restore files with specified index."
+    echo "                          Takes integer as argument."
+    echo "  timeout [integer (min)]     Set timeout. (Default: 120 [min])"
 }
 
 BACKUP_DIR="./backup"
@@ -68,6 +69,12 @@ elif [ "$1" = "restore" ]; then
     shift
     cd "$(dirname -- "$(realpath "$0")")"
     ./restore_files.sh "${BACKUP_DIR}" "${PATH_RECORD}" "$@"
+    exit 0
+
+elif [ "$1" = "timeout" ]; then
+    shift
+    cd "$(dirname -- "$(realpath "$0")")"
+    ./set_timeout.sh "${NOHUP_PID_FILE}" "${BACKUP_DIR}" "${PATH_RECORD}" "$1"
     exit 0
 
 else
